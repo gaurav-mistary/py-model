@@ -14,7 +14,9 @@ def get_foreign_data():
 
 
 def analyze(data):
-    send_adds_to = [d["addresses"][0] for d in data]
+    # See, if statements are a great fix. Moreover, it's not 'analyze''s fault
+    # that it received messy data
+    send_adds_to = [d["addresses"][0] for d in data if len(d["addresses"]) > 0]
     return send_adds_to
 
 
