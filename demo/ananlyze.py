@@ -29,6 +29,8 @@ def send_advertisements(send_adds_to, msg="Algorithm is real, you are in Matrix!
 
 def main():
     foreign_data = get_foreign_data()
-    foreign_data = [d for d in foreign_data if len(d["addresses"]) > 0]
-    send_advertisements_to = analyze(data=foreign_data)
+
+    # Immutability sir!!
+    foreign_data_with_addresses = [d for d in foreign_data if len(d["addresses"]) > 0]
+    send_advertisements_to = analyze(data=foreign_data_with_addresses)
     send_advertisements(send_adds_to=send_advertisements_to, msg="Keep Working")
