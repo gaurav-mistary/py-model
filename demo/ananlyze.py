@@ -6,7 +6,8 @@ current_dir = Path(__file__).parent
 
 
 def get_foreign_data():
-    with open(current_dir / "foreign_response.json", "r") as f:
+    # 'address' key still exists
+    with open(current_dir / "new_foreign_response.json", "r") as f:
         data = json.load(f)
 
     return data

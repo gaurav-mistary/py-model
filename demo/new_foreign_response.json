@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Ramesh Foo",
+    "age": 47,
+    "addresses": [],
+    "blood_group": "O+"
+  },
+  {
+    "name": "Suresh Bar",
+    "age": 48,
+    "addresses": [],
+    "blood_group": "B+"
+  }
+]
