@@ -29,3 +29,17 @@ class OnlyEitherMustBePresent(ImproperlyConfigured):
     def __init__(self, func_name: str, fields: tuple[str, ...]):
         self.msg = f"[X] Only either of {fields} must be present in func: {func_name}"
         super().__init__(msg=self.msg)
+
+
+class InvalidInput(ImproperlyConfigured):
+    def __init__(self, msg: str, field: str | None = None, value: str | None = None):
+        if not msg:
+            assert all([field, value]), ImproperlyConfigured(
+                f"[x] If not providing message, "
+                f"both 'field' and 'value' are mandatory"
+            )
+            msg = f"[X] Invalid input received for field: {field} := {value}"
+
+        self.msg = msg
+
+        super().__init__(self.msg)
