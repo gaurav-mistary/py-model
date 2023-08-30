@@ -21,19 +21,27 @@ class Address(ImmutableModel):
         return value
 
 
-class PersonDetails(ImmutableModel):
-    name: str
-    age: PositiveInt
-    addresses: tuple[Address, ...]
-    blood_group: str
-
+class AddressValidator:
     @field_validator("addresses")
     @classmethod
     def validate_addresses(cls, addresses: tuple[Address]) -> tuple[Address]:
-
         if len(addresses) < 1:
             raise InvalidInput(
                 msg=f"[X] At least one address expected, provided: {addresses}"
             )
 
         return addresses
+
+
+class PersonDetails(ImmutableModel, AddressValidator):
+    name: str
+    age: PositiveInt
+    addresses: tuple[Address, ...]
+    blood_group: str
+
+
+class PersonDetailsWithoutAddress(ImmutableModel):
+    name: str
+    age: PositiveInt
+    addresses: tuple[Address, ...]
+    blood_group: str
