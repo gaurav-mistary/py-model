@@ -11,6 +11,10 @@ click = "^8.1.7"
 mypy = "^1.5.1"
 pydantic = "^2.3.0"
 
+[tool.poetry.group.dev]
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core"]
