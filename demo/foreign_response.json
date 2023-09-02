@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Ramesh Foo",
+        "age": 47,
+        "addresses": [
+            {
+                "street": "abc street",
+                "area": "123 area",
+                "pincode": 112233
+            },
+            {
+                "street": "def street",
+                "area": "456 area",
+                "pincode": 334455
+            }
+        ],
+        "blood_group": "O+"
+    },
+    {
+        "name": "Suresh Bar",
+        "age": 48,
+        "addresses": [
+            {
+                "street": "street ĕ abc",
+                "area": "area ĕ 123 ",
+                "pincode": 112233
+            },
+            {
+                "street": "street ĕ def",
+                "area": "area ĕ 456",
+                "pincode": 334455
+            }
+        ],
+        "blood_group": "B+"
+    }
+]

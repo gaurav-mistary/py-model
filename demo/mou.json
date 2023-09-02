@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Ramesh Foo",
+    "age": 47,
+    "email_addresses": [
+      "rameshfoo@google.com",
+      "rameshfoo@5star.com"
+    ],
+    "blood_group": "O+"
+  },
+  {
+    "name": "Suresh Bar",
+    "age": 48,
+    "email_addresses": [
+      "bareramesh@google.com"
+    ],
+    "blood_group": "B+"
+  }
+]
