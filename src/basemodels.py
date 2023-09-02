@@ -18,6 +18,23 @@ class MutableModel(Model):
 class ImmutableModel(MutableModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
+    def _nested_getattr(self, key: str) -> Self:
+        """
+        So the idea is that we get
+            key = "a.b.c"
+        where all a,b,c are nested ImmutableModels of self, we have to return c using getattr method
+        :param key: str
+        :return: Self
+        """
+        key_split = key.split(".")
+
+        value: Self = getattr(self, key_split.pop(0))
+
+        for _field in key_split:
+            value = getattr(value, _field)
+
+        return value
+
     def _copy(self, key: str, value: T, deep: bool = False) -> Self:
         """
         The core of my recursive genius!
@@ -65,28 +82,28 @@ class ImmutableModel(MutableModel):
         try:
             model_attr_name = key_split[-2]  # this will raise the IndexError
             attr_name = key_split[-1]
+            model_attr_key = ".".join(key_split[:-1])
 
-            if (_obj := getattr(self, model_attr_name)) is None:
+            if (_obj := self._nested_getattr(key=model_attr_key)) is None:
                 raise AttributeError(
                     f"[X] Field: {key} is missing attribute: {model_attr_name}"
                 )
 
             if not hasattr(_obj, "model_copy"):
-                print(f"OBJ: {_obj}")
                 raise ValueError(
                     f"[X] Key: {key} includes a non-pydantic model class "
                     f"attribute: {model_attr_name}, with class: {_obj.__class__}"
                 )
 
             return self._copy(
-                key=".".join(key_split[:-1]),
+                key=model_attr_key,
                 value=_obj.model_copy(update={attr_name: value}, deep=deep),
                 deep=deep,
             )
 
         except IndexError:
             model_attr_name = key_split.pop(0)
-            _obj = self.model_fields.get(model_attr_name)
+            _obj = getattr(self, model_attr_name)
             return self.model_copy(update={model_attr_name: value}, deep=deep)
 
     def new(self, key: str, value: T, deep: bool = False) -> Self:
